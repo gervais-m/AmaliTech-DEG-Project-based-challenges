@@ -1,3 +1,20 @@
+## A. Executive Summary
+
+This audit analyzed Veridi Logistics' delivery performance by combining order, review, and customer location data. On average, 89% of orders were delivered on time, but late deliveries are heavily concentrated in specific regions rather than spread nationwide: Alagoas (AL) and Maranhão (MA) had the highest late rates, at roughly 24% and 20%, compared to under 6% in São Paulo. Late deliveries strongly hurt customer satisfaction, with average review scores dropping from 4.3 (On Time) to 1.8 (Super Late). Product category also plays a role: categories like audio, fashion/underwear, and electronics show above-average late rates, suggesting the problem is driven by both regional logistics and specific product handling, not delivery speed alone.
+
+## B. Project Links
+
+- Link to Notebook: https://colab.research.google.com/drive/1zimkIr52FmvLeZj7BL6BkN7nESm2VkF1?usp=sharing
+- Link to Dashboard: https://datastudio.google.com/reporting/02e92443-ef7b-4e12-8c39-9fafac65cc59
+- Link to Presentation: https://docs.google.com/presentation/d/1kG-t-d-I_Acr2xlLcRAwYopPbqbb1c06nbaJX8QGDow/edit?usp=sharing
+
+## C. Technical Explanation
+
+**Data Cleaning:** I joined the orders, reviews, customers, and order_items tables on their respective keys. Reviews and order items both had a 1-to-many relationship with orders (some orders had multiple reviews or items), which initially caused duplicate rows after merging. I fixed this by keeping only the most recent review and the first item per order, bringing the row count back to the original 99,441 orders. Orders with no delivery date (canceled/unavailable) were kept but flagged as "Not Delivered" rather than excluded, so they're visible but don't distort the delay calculations.
+
+**Candidate's Choice:** I added a "Late Delivery Rate by Product Category" analysis. The original brief focused only on geography, but I wanted to check whether certain product types are inherently harder to deliver on time (e.g., due to fragility, specialized sellers, or packaging needs). This showed that categories like audio and electronics have above-average late rates, giving Veridi a second lever (product-specific carrier/packaging improvements) alongside regional fixes.
+
+---
 # Project Brief: The "Last Mile" Logistics Auditor
 
 **Client:** Veridi Logistics (Global E-Commerce Aggregator)
